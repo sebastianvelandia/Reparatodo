@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Reparapp',
         'USER':'root',
-        'PASSWORD':'1234',
+        'PASSWORD':'12345',
         'HOST':'localhost',
         'PORT':'',
     }
