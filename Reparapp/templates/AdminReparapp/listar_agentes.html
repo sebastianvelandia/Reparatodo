@@ -1,0 +1,32 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de Agentes
+{% endblock title %}
+
+
+{% block body %}
+    {% if  agentes %}    
+    <table class="default">
+        <tr>
+            <th>Agente id</th>
+            <th>Nombre</th>
+            <th>telefono</th>
+        </tr>
+        
+        {% for agente in agentes %}
+        <tr>
+            <td>{{agente.agente_id}}</td>
+            <td>{{agente.nombre}}</td>
+            <td>{{agente.telefono}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>

@@ -1,0 +1,2 @@
+Crear aplicacion: python manage.py startapp
+Crear imagen de relaciones: py manage.py graph_models --pydot -a -g -o reparapp_visualized.png
