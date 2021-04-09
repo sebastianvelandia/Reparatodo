@@ -3,7 +3,7 @@ from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
 from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin
-from .models import Agente, TecnicoEspecialista
+from .models import Agente, TecnicoEspecialista, Usuario
 
 # Create your views here.
 
@@ -28,7 +28,7 @@ class ActualizarAgente(UpdateView):
     success_url = reverse_lazy('my_admin:listar_agentes')
 
 class AgregarAgente(CreateView):
-    model = Agente
+    model = Usuario
     form_class = AgenteForm
     template_name = 'AdminReparapp/agregar_agente.html'
     success_url = reverse_lazy('my_admin:listar_agentes')

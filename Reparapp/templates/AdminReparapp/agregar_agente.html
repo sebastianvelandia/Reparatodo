@@ -2,10 +2,18 @@
 {% block title %}
     Creación de agentes
 {% endblock title %}
+
+{% load crispy_forms_tags %}
     {% block body %}
     <form method="POST">
         {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Agregar</button>
+            {{ form | crispy }}
+
+
+            <div class="float-right">
+                <button type="submit" class="btn btn-success">Agregar</button>
+                <button type="reset" class="btn btn-info">Limpiar</button>
+            </div>
+            
     </form>
     {% endblock body %}
