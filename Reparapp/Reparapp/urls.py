@@ -23,7 +23,7 @@ urlpatterns = [
     path('my_admin/', include(('AdminReparapp.urls', 'my_admin'))),
     path('agente/', include(('AgenteReparapp.urls', 'agente'))),
     path('tecnico/', include(('TecnicoReparapp.urls', 'tecnico'))),
-    path('inicio/', Inicio.as_view(), name='index'),
+    path('inicio/', login_required(Inicio.as_view()), name='index'),
     path('accounts/login/', Login.as_view(), name = 'login'),
     path('logout/', login_required(cerrar_sesion), name='logout')
 ]

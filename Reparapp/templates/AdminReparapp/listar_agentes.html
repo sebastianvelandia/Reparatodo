@@ -8,7 +8,7 @@ Lista de Agentes
 
 {% block body %}
 
-{% if user.is_staff%}
+{% if user.is_admin %}
 <br>
 <table class="table">
     <tr>
@@ -38,8 +38,7 @@ Lista de Agentes
 {% else %}
 <p>No tiene autorización para ingresar a este sitio</p>
 {% endif%}
+<a href={% url 'index' %} class="btn btn-success">Volver</a>
 {% endblock body %}
-
-
 
 </html>

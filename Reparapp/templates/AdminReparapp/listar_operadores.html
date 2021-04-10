@@ -1,0 +1,46 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de operadores
+{% endblock title %}
+
+
+{% block body %}
+{% if user.is_admin %}
+<br>
+<table class="table">
+    {% if  operadores %}
+    <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Taller</th>
+        <th>Opciones</th>
+    </tr>
+    {% for operador in operadores %}
+    <tr>
+        <td>{{operador.operador_id}}</td>
+        <td>{{operador.user.nombres}}</td>
+        <td>{{operador.user.telefono}}</td>
+        <td>{{operador.call_center}}</td>
+        <td>
+            <a href={% url 'my_admin:actualizar_operador' operador.user.id %} class="btn btn-success">Editar Técnico</a>
+            <a href={% url 'my_admin:eliminar_operador' operador.user.id %} class="btn btn-danger">Eliminar Técnico</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No existen operadores</h1>
+    {% endif %}
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
+
+<a href={% url 'index' %} class="btn btn-success">Volver</a>
+{% endblock body %}
+
+
+
+</html>

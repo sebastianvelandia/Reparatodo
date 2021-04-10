@@ -8,13 +8,12 @@ from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 
 # Create your views here.
-from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin
-from .models import Agente, TecnicoEspecialista, Usuario
+from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin, EditarForm, AgregarTrabajadorForm, OperadorForm
+from .models import Agente, TecnicoEspecialista, Usuario, Operador
 from .decorators import allowed_agente
 
 class Inicio(TemplateView):
     template_name = 'inicio/index.html'
-
 
 class Login(FormView):
     template_name = 'inicio/login.html'
@@ -45,10 +44,15 @@ class ListadoAgente(ListView):
 
 class ActualizarAgente(UpdateView):
     model = Usuario
-    form_class = AgenteForm
+    form_class = EditarForm
     template_name = 'AdminReparapp/editar_agente.html'
     success_url = reverse_lazy('my_admin:listar_agentes')
 
+class AgregarTrabajador(CreateView):
+    model = Usuario
+    form_class = AgregarTrabajadorForm
+    template_name = 'AdminReparapp/agregar.html'
+    success_url = reverse_lazy('my_admin:listar_agentes')
 
 class AgregarAgente(CreateView):
     model = Usuario
@@ -56,11 +60,9 @@ class AgregarAgente(CreateView):
     template_name = 'AdminReparapp/agregar_agente.html'
     success_url = reverse_lazy('my_admin:listar_agentes')
 
-
 class EliminarAgente(DeleteView):
     model = Agente
     success_url = reverse_lazy('my_admin:listar_agentes')
-
 
 class ListadoTecnico(ListView):
     model = TecnicoEspecialista
@@ -68,24 +70,46 @@ class ListadoTecnico(ListView):
     context_object_name = 'tecnicos'
     queryset = TecnicoEspecialista.objects.all()
 
-
 class ActualizarTecnico(UpdateView):
-    model = TecnicoEspecialista
-    form_class = TecnicoEspecialistaForm
+    model = Usuario
+    form_class = EditarForm
     template_name = 'AdminReparapp/editar_tecnico.html'
     success_url = reverse_lazy('my_admin:listar_tecnicos')
 
-
 class AgregarTecnico(CreateView):
-    model = TecnicoEspecialista
+    model = Usuario
     form_class = TecnicoEspecialistaForm
     template_name = 'AdminReparapp/agregar_tecnico.html'
     success_url = reverse_lazy('my_admin:listar_tecnicos')
 
-
 class EliminarTecnico(DeleteView):
     model = TecnicoEspecialista
     success_url = reverse_lazy('my_admin:listar_tecnicos')
+
+class ListadoOperador(ListView):
+    model = Operador
+    template_name = 'AdminReparapp/listar_operadores.html'
+    context_object_name = 'operadores'
+    queryset = Operador.objects.all()
+
+class ActualizarOperador(UpdateView):
+    model = Usuario
+    form_class = EditarForm
+    template_name = 'AdminReparapp/editar_operador.html'
+    success_url = reverse_lazy('my_admin:listar_operadores')
+
+class AgregarOperador(CreateView):
+    model = Usuario
+    form_class = OperadorForm
+    template_name = 'AdminReparapp/agregar_operador.html'
+    success_url = reverse_lazy('my_admin:listar_operadores')
+
+class EliminarOperador(DeleteView):
+    model = TecnicoEspecialista
+    success_url = reverse_lazy('my_admin:listar_operadores')
+
+
+
 
 # def login_view(request):
 #     if request.method == 'POST':
