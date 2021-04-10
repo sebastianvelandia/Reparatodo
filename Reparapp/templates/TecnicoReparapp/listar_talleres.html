@@ -1,0 +1,30 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de talleres
+{% endblock title %}
+
+
+{% block body %}
+    {% if  talleres %}    
+    <table class="default">
+        <tr>
+            <th>Taller id</th>
+            <th>Nombre</th>
+        </tr>
+        
+        {% for taller in talleres %}
+        <tr>
+            <td>{{taller.Taller_id}}</td>
+            <td>{{taller.Nombre_taller}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>

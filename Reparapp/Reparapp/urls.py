@@ -21,6 +21,8 @@ from AdminReparapp.views import Inicio, Login, cerrar_sesion
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('my_admin/', include(('AdminReparapp.urls', 'my_admin'))),
+    path('agente/', include(('AgenteReparapp.urls', 'agente'))),
+    path('tecnico/', include(('TecnicoReparapp.urls', 'tecnico'))),
     path('inicio/', Inicio.as_view(), name='index'),
     path('accounts/login/', Login.as_view(), name = 'login'),
     path('logout/', login_required(cerrar_sesion), name='logout')

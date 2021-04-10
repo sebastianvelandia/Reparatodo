@@ -1,0 +1,38 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de facturas
+{% endblock title %}
+
+
+{% block body %}
+    {% if  facturas %}    
+    <table class="default">
+        <tr>
+            <th>Factura id</th>
+            <th>Costo de la orden</th>
+            <th>Orden id</th>
+            <th>Tecnico Especialista</th>
+            <th>CallCenter</th>
+            <th>Fecha de retiro</th>
+        </tr>
+        
+        {% for factura in facturas %}
+        <tr>
+            <td>{{factura.factura_id}}</td>
+            <td>{{factura.costo_orden}}</td>
+            <td>{{factura.orden}}</td>
+            <td>{{factura.tecnicoEspecialista}}</td>
+            <td>{{factura.callCenter}}</td>
+            <td>{{factura.fecha_retiro}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>
