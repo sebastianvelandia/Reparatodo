@@ -1,0 +1,32 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de Productos
+{% endblock title %}
+
+
+{% block body %}
+    {% if  productos %}    
+    <table class="default">
+        <tr>
+            <th>Codigo Producto</th>
+            <th>Averia</th>
+            <th>Nombre Producto</th>
+        </tr>
+        
+        {% for producto in productos %}
+        <tr>
+            <td>{{producto.codigo_id}}</td>
+            <td>{{producto.averia}}</td>
+            <td>{{producto.nombre_electrodomestico}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>

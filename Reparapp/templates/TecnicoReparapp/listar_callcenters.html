@@ -1,0 +1,32 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de callcenters
+{% endblock title %}
+
+
+{% block body %}
+    {% if  callcenters %}    
+    <table class="default">
+        <tr>
+            <th>CallCenter NIT</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+        </tr>
+        
+        {% for callcenter in callcenters %}
+        <tr>
+            <td>{{callcenter.CallCenter_NIT}}</td>
+            <td>{{callcenter.Nombre_callcenter}}</td>
+            <td>{{callcenter.Direccion}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>

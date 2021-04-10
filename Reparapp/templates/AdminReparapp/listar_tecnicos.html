@@ -1,0 +1,34 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de tecnicos
+{% endblock title %}
+
+
+{% block body %}
+    {% if  tecnicos %}    
+    <table class="default">
+        <tr>
+            <th>Tecnico id</th>
+            <th>Nombre</th>
+            <th>Telefono</th>
+            <th>Taller</th>
+        </tr>
+        
+        {% for tecnico in tecnicos %}
+        <tr>
+            <td>{{tecnico.tecnico_id}}</td>
+            <td>{{tecnico.nombre}}</td>
+            <td>{{tecnico.telefono}}</td>
+            <td>{{tecnico.taller}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>

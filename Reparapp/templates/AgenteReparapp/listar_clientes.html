@@ -1,0 +1,32 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de Clientes
+{% endblock title %}
+
+
+{% block body %}
+    {% if  clientes %}    
+    <table class="default">
+        <tr>
+            <th>Cliente id</th>
+            <th>Nombre</th>
+            <th>telefono</th>
+        </tr>
+        
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{cliente.cliente_id}}</td>
+            <td>{{cliente.nombre}}</td>
+            <td>{{cliente.telefono}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>
