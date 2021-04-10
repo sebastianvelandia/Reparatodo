@@ -7,28 +7,37 @@ Lista de tecnicos
 
 
 {% block body %}
-    {% if  tecnicos %}    
-    <table class="default">
-        <tr>
-            <th>Tecnico id</th>
-            <th>Nombre</th>
-            <th>Telefono</th>
-            <th>Taller</th>
-        </tr>
-        
-        {% for tecnico in tecnicos %}
-        <tr>
-            <td>{{tecnico.tecnico_id}}</td>
-            <td>{{tecnico.nombre}}</td>
-            <td>{{tecnico.telefono}}</td>
-            <td>{{tecnico.taller}}</td>
-        </tr>
-        {% endfor %}
-    </table>
+{% if user.is_staff%}
+<br>
+<table class="table">
+    {% if  tecnicos %}
+    <tr>
+        <th>Cédula</th>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Taller</th>
+        <th>Opciones</th>
+    </tr>
+    {% for tecnico in tecnicos %}
+    <tr>
+        <td>{{tecnico.tecnico_id}}</td>
+        <td>{{tecnico.user.nombres}}</td>
+        <td>{{tecnico.user.telefono}}</td>
+        <td>{{tecnico.taller}}</td>
+        <td>
+            <a href={% url 'my_admin:actualizar_tecnico' tecnico.user.id %} class="btn btn-success">Editar Técnico</a>
+            <a href={% url 'my_admin:eliminar_tecnico' tecnico.user.id %} class="btn btn-danger">Eliminar Técnico</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No existen técnicos</h1>
     {% endif %}
-
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
+<a href={% url 'index' %} class="btn btn-success">Volver</a>
 {% endblock body %}
-
-
 
 </html>

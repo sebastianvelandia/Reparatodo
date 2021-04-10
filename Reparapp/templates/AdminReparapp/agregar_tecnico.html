@@ -1,15 +1,16 @@
 {% extends 'inicio/index.html' %}
 {% block title %}
-<<<<<<< HEAD
-    Creación de técnicos
-=======
-    Creación de tecnico
->>>>>>> master
+Creación de técnicos
 {% endblock title %}
-    {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Agregar</button>
-    </form>
-    {% endblock body %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <br>
+    <p align="right">
+        <button type="submit" class="btn btn-success">Agregar</button>
+    </p>
+</form>
+{% endblock body %}

@@ -5,7 +5,7 @@ from TecnicoReparapp.models import Taller, CallCenter
 
 
 class UsuarioManager(BaseUserManager):
-    def create_user(self, email, username, nombres, apellidos,telefono, password=None):
+    def create_user(self, email, username, nombres, apellidos, telefono, password=None):
         if not email:
             raise ValueError('El usuario debe tener un correo electrónico')
 
@@ -14,13 +14,13 @@ class UsuarioManager(BaseUserManager):
             email=self.normalize_email(email),
             nombres=nombres,
             apellidos=apellidos,
-            telefono = telefono
+            telefono=telefono
         )
         usuario.set_password(password)
         usuario.save()
         return usuario
 
-    def create_superuser(self, username, email, nombres, apellidos,telefono, password):
+    def create_superuser(self, username, email, nombres, apellidos, telefono, password):
         usuario = self.create_user(
             email=email,
             username=username,
@@ -30,6 +30,7 @@ class UsuarioManager(BaseUserManager):
             password=password
         )
         usuario.usuario_administrador = True
+        usuario.usuario_admin = True
         usuario.save()
         return usuario
 
@@ -41,14 +42,15 @@ class Usuario(AbstractBaseUser):
     apellidos = models.CharField('Apellidos', max_length=50, blank=True, null=True,)
     telefono = models.CharField('Teléfono',  max_length=20)
     usuario_activo = models.BooleanField(default=True)
-    usuario_administrador = models.BooleanField(default=False)
+    usuario_administrador = models.BooleanField(default=True)
+    usuario_admin = models.BooleanField(default=False)
     usuario_agente = models.BooleanField(default=False)
     usuario_tecnico = models.BooleanField(default=False)
     usuario_operador = models.BooleanField(default=False)
     objects = UsuarioManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username','nombres', 'apellidos','telefono']
+    REQUIRED_FIELDS = ['username', 'nombres', 'apellidos', 'telefono']
 
     def __str__(self):
         return self.nombres
@@ -63,6 +65,11 @@ class Usuario(AbstractBaseUser):
     def is_staff(self):
         return self.usuario_administrador
 
+ 
+    # @property
+    def is_admin(self):
+        return self.usuario_admin
+    
     # @property
     def is_agente(self):
         return self.usuario_agente
@@ -77,8 +84,8 @@ class Usuario(AbstractBaseUser):
 
 
 class Agente(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key = True)
-    agente_id = models.CharField(max_length=50, unique = True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    agente_id = models.CharField(max_length=50, unique=True)
 
     class Meta:
         verbose_name = ("Agente")
@@ -92,9 +99,9 @@ class Agente(models.Model):
 
 
 class TecnicoEspecialista(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key = True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     tecnico_id = models.CharField(unique=True, max_length=50)
-    taller = models.ForeignKey(Taller, on_delete=models.CASCADE)
+    taller = models.ForeignKey(Taller, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = ("TecnicoEspecialista")
@@ -108,9 +115,9 @@ class TecnicoEspecialista(models.Model):
 
 
 class Operador(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key = True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     operador_id = models.CharField(max_length=50, unique=True)
-    call_center = models.ForeignKey(CallCenter, on_delete=models.CASCADE)
+    call_center = models.ForeignKey(CallCenter, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = ("Operador")
