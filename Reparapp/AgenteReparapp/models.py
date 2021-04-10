@@ -74,10 +74,6 @@ class Factura(models.Model):
     factura_id = models.AutoField(primary_key=True)
     costo_orden = models.IntegerField()
     orden = models.OneToOneField(Orden, on_delete=models.CASCADE)
-<<<<<<< HEAD
-=======
-    tecnicoEspecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE)
->>>>>>> master
     callCenter = models.ForeignKey(CallCenter, on_delete=models.CASCADE)
     fecha_retiro = models.DateField(auto_now_add=False)
 
