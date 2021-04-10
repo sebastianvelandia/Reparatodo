@@ -9,18 +9,16 @@
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 </head>
 <body>
-    <form method="post">
+    <form method="POST">
         <div class="container">
         {% csrf_token %}
-            <div class= "form-group">
-                <label >Nombre de usuario</label>
-                <input type="text" placeholder="Nombre de usuario">
-            </div>
-            <div class= "form-group">
-                <label >Contraseña</label>
-                <input type="password" placeholder="Contraseña">
-            </div>
-            <button type="submit">Iniciar Sesión</button>
+        <form method="POST">
+            {% csrf_token %}
+            <br>
+            {{ form.as_p }}
+            <br>
+                    <button type="submit" class="btn btn-success">Login</button>
+        </form>
         </div>
     </form>
 </body>

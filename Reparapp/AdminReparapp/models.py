@@ -44,8 +44,8 @@ class Usuario(AbstractBaseUser):
     usuario_operador = models.BooleanField(default=False)
     objects = UsuarioManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'nombres', 'apellidos']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['nombres', 'apellidos']
 
     def __str__(self):
         return self.nombres

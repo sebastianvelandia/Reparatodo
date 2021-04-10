@@ -9,7 +9,7 @@ class FormularioLogin(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(FormularioLogin, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['username'].widget.attrs['placeholder'] = 'Nombre de usuario'
+        self.fields['username'].widget.attrs['placeholder'] = 'Correo electrónico'
         self.fields['password'].widget.attrs['class'] = 'form-control'
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
 
@@ -32,6 +32,7 @@ class AgenteForm(UserCreationForm):
         user.email = self.cleaned_data.get('email')
         user.nombres = self.cleaned_data.get('nombres')
         user.apellidos = self.cleaned_data.get('apellidos')
+        user.usuario_agente = True
         user.save()
         agente = Agente.objects.create(user=user)
         agente.agente_id = self.cleaned_data.get('agente_id')
@@ -47,7 +48,6 @@ class TecnicoEspecialistaForm(UserCreationForm):
     apellidos = forms.CharField(required=True)
     tecnico_id = forms.CharField(required=True)
     telefono = forms.CharField(required=True)
-    usuario_tecnico = forms.BooleanField()
     taller = forms.ModelChoiceField(queryset = Taller.objects.all())
 
     class Meta(UserCreationForm.Meta):
@@ -60,6 +60,7 @@ class TecnicoEspecialistaForm(UserCreationForm):
         user.email = self.cleaned_data.get('email')
         user.nombres = self.cleaned_data.get('nombres')
         user.apellidos = self.cleaned_data.get('apellidos')
+        user.usuario_tecnico = True
         user.save()
         tecnico = TecnicoEspecialista.objects.create(user=user)
         tecnico.agente_id = self.cleaned_data.get('agente_id')

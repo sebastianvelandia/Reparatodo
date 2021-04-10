@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('my_admin/', include(('AdminReparapp.urls', 'my_admin'))),
     path('inicio/', Inicio.as_view(), name='index'),
-    path('', Login.as_view(), name = 'login')
+    path('', Login.as_view(), name = 'login'),
 ]

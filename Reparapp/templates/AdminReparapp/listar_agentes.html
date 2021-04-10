@@ -8,17 +8,18 @@ Lista de Agentes
 
 {% block body %}
     {% if  agentes %}    
-    <table class="default">
-        <tr>
+    <table class="table table-bordered">
+        <tr> 
+            <th>Correo</th>
             <th>Agente id</th>
-            <th>Nombre</th>
-            <th>telefono</th>
+            <th>Nombres</th>
+            <th>Teléfono</th>
         </tr>
-        
         {% for agente in agentes %}
         <tr>
+            <td>{{agente.user.email}}</td>
             <td>{{agente.agente_id}}</td>
-            <td>{{agente.nombre}}</td>
+            <td>{{agente.user.nombres}}</td>
             <td>{{agente.telefono}}</td>
         </tr>
         {% endfor %}
