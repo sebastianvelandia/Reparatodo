@@ -1,11 +1,20 @@
-{% extends 'inicio/index.html' %}
-{% block title %}
-    Creación de orden
-{% endblock title %}
-    {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Agregar</button>
-    </form>
-    {% endblock body %}
+{% extends 'base.html' %}
+{% block title %} Iniciar sesión  {% endblock title %}
+
+{% block body %}
+<h1 text ="align-center">Creación de la orden de servicio</h1>
+<div class ="col-md-12">
+    <div style="width: 50%; margin:auto">
+        <table class = "table table-striped style"border: 1px solid rgb (8,8,8);>
+            <form method="post">
+                {% csrf_token %}
+                {{ forms.as_p }}
+                <input class="btn btn-primary" type="submit" value="Save">
+            </form>
+        </table>
+    </div>
+    
+
+</div>
+
+{% endblock body %}
