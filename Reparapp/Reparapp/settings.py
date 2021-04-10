@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Reparapp',
         'USER':'root',
-        'PASSWORD':'1234',
+        'PASSWORD':'Sistemas1',
         'HOST':'localhost',
         'PORT':'',
     }
@@ -129,4 +129,4 @@ GRAPH_MODELS = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = './static/'

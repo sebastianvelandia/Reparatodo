@@ -1,0 +1,25 @@
+
+
+body
+{
+    background-color: rgb white
+    padding-top 56px;
+}
+
+.jumbotron {
+    background: url("../images/image3.JPG}") no-repeat center;
+}
+.btn-primary {
+    background-color: #2755ec;
+    border-color: #2755ec;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border-color: #2755ec;
+    color: #2755ec;
+}
+
+#contact {
+    background: url("../images/image3.jpg") no-repeat center;
+}
