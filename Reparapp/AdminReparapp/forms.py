@@ -14,31 +14,57 @@ class FormularioLogin(AuthenticationForm):
         self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
 
 
-class AgenteForm(UserCreationForm):
-    username = forms.CharField(required=True)
-    email = forms.EmailField(required=True)
-    nombres = forms.CharField(required=True)
-    apellidos = forms.CharField(required=True)
-    agente_id = forms.CharField(required=True)
-    telefono = forms.CharField(required=True)
-
-    class Meta(UserCreationForm.Meta):
+class AgenteForm(forms.ModelForm):
+    agente_id = forms.CharField(label='Cédula', widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Ingrese la cédula',
+            'id': 'password2',
+            'required': 'required'
+        }
+    ))
+    class Meta:
         model = Usuario
+        fields = ('nombres','apellidos','email','telefono')
 
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
-        user.username = self.cleaned_data.get('username')
-        user.email = self.cleaned_data.get('email')
-        user.nombres = self.cleaned_data.get('nombres')
-        user.apellidos = self.cleaned_data.get('apellidos')
+        user.username = self.cleaned_data.get('agente_id')
+        user.set_password(self.cleaned_data.get('agente_id'))
         user.usuario_agente = True
         user.save()
         agente = Agente.objects.create(user=user)
         agente.agente_id = self.cleaned_data.get('agente_id')
-        agente.telefono = self.cleaned_data.get('telefono')
         agente.save()
         return user
+
+
+# class AgenteForm(UserCreationForm):
+#     username = forms.CharField(required=True)
+#     email = forms.EmailField(required=True)
+#     nombres = forms.CharField(required=True)
+#     apellidos = forms.CharField(required=True)
+#     agente_id = forms.CharField(required=True)
+#     telefono = forms.CharField(required=True)
+
+#     class Meta(UserCreationForm.Meta):
+#         model = Usuario
+
+#     @transaction.atomic
+#     def save(self):
+#         user = super().save(commit=False)
+#         user.username = self.cleaned_data.get('agente_id')
+#         user.email = self.cleaned_data.get('email')
+#         user.nombres = self.cleaned_data.get('nombres')
+#         user.apellidos = self.cleaned_data.get('apellidos')
+#         user.telefono = self.cleaned_data.get('telefono')
+#         user.usuario_agente = True
+#         user.save()
+#         agente = Agente.objects.create(user=user)
+#         agente.agente_id = self.cleaned_data.get('agente_id')
+#         agente.save()
+#         return user
 
 
 class TecnicoEspecialistaForm(UserCreationForm):
@@ -48,11 +74,11 @@ class TecnicoEspecialistaForm(UserCreationForm):
     apellidos = forms.CharField(required=True)
     tecnico_id = forms.CharField(required=True)
     telefono = forms.CharField(required=True)
-    taller = forms.ModelChoiceField(queryset = Taller.objects.all())
+    taller = forms.ModelChoiceField(queryset=Taller.objects.all())
 
     class Meta(UserCreationForm.Meta):
         model = Usuario
-    
+
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -60,11 +86,11 @@ class TecnicoEspecialistaForm(UserCreationForm):
         user.email = self.cleaned_data.get('email')
         user.nombres = self.cleaned_data.get('nombres')
         user.apellidos = self.cleaned_data.get('apellidos')
+        user.telefono = self.cleaned_data.get('telefono')
         user.usuario_tecnico = True
         user.save()
         tecnico = TecnicoEspecialista.objects.create(user=user)
         tecnico.agente_id = self.cleaned_data.get('agente_id')
-        tecnico.telefono = self.cleaned_data.get('telefono')
         tecnico.taller = self.cleaned_data.get('taller')
         agente.save()
         return user

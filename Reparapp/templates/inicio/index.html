@@ -17,11 +17,12 @@
 <body>
     <div class="container">
         {% block body %}
-        <h1>Este es el index</h1>
-
+        <h1>{{ user.nombres }} Bienvenido</h1>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <a href={% url 'my_admin:listar_agentes' %} class="btn btn-success">Listar Agentes</a>
+        <a href={% url 'my_admin:eliminar_agente' %} class="btn btn-info">Agregar Agente</a>
+        <a href={% url 'logout' %} class="btn btn-success">Logout</a>
         {% endblock body %}
     </div>
     {% block extrajs %}

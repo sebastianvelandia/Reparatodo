@@ -7,25 +7,37 @@ Lista de Agentes
 
 
 {% block body %}
-    {% if  agentes %}    
-    <table class="table table-bordered">
-        <tr> 
-            <th>Correo</th>
-            <th>Agente id</th>
-            <th>Nombres</th>
-            <th>Teléfono</th>
-        </tr>
-        {% for agente in agentes %}
-        <tr>
-            <td>{{agente.user.email}}</td>
-            <td>{{agente.agente_id}}</td>
-            <td>{{agente.user.nombres}}</td>
-            <td>{{agente.telefono}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
 
+{% if user.is_staff%}
+<br>
+<table class="table">
+    <tr>
+        <th>Correo</th>
+        <th>Agente id</th>
+        <th>Nombres</th>
+        <th>Teléfono</th>
+        <th>Opciones</th>
+    </tr>
+    {% if  agentes %}
+    {% for agente in agentes %}
+    <tr>
+        <td>{{agente.user.email}}</td>
+        <td>{{agente.agente_id}}</td>
+        <td>{{agente.user.nombres}}</td>
+        <td>{{agente.user.telefono}}</td>
+        <td>
+            <a href={% url 'my_admin:actualizar_agente' agente.user.id %} class="btn btn-success">Editar Agente</a>
+            <a href={% url 'my_admin:eliminar_agente' agente.user.id %} class="btn btn-danger">Eliminar Agente</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No existen agentes</h1>
+    {% endif %}
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
 {% endblock body %}
 
 

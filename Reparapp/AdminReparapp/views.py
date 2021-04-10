@@ -6,11 +6,11 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin
-from .models import Agente, TecnicoEspecialista, Usuario
 
 # Create your views here.
-
+from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin
+from .models import Agente, TecnicoEspecialista, Usuario
+from .decorators import allowed_agente
 
 class Inicio(TemplateView):
     template_name = 'inicio/index.html'
@@ -33,6 +33,9 @@ class Login(FormView):
         login(self.request, form.get_user())
         return super(Login, self).form_valid(form)
 
+def cerrar_sesion(request):
+    logout(request)
+    return HttpResponseRedirect('/accounts/login/')
 
 class ListadoAgente(ListView):
     model = Agente
@@ -40,9 +43,8 @@ class ListadoAgente(ListView):
     context_object_name = 'agentes'
     queryset = Agente.objects.all()
 
-
 class ActualizarAgente(UpdateView):
-    model = Agente
+    model = Usuario
     form_class = AgenteForm
     template_name = 'AdminReparapp/editar_agente.html'
     success_url = reverse_lazy('my_admin:listar_agentes')
