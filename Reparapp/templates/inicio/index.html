@@ -18,8 +18,15 @@
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <a href={% url 'my_admin:listar_agentes' %} class="btn btn-success">Listar Agentes</a>
+<<<<<<< Updated upstream
     {% endblock body %}
      
+=======
+        <a href={% url 'my_admin:agregar_agente' %} class="btn btn-info">Agregar Agente</a>
+        <a href={% url 'logout' %} class="btn btn-success">Logout</a>
+        {% endblock body %}
+    </div>
+>>>>>>> Stashed changes
     {% block extrajs %}
     {% endblock extrajs %}
         
