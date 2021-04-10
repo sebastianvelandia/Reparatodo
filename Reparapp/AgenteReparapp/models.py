@@ -27,7 +27,7 @@ class Cliente(models.Model):
         verbose_name_plural = ("Clientes")
 
     def __str__(self):
-        return self.Nombre
+        return self.nombre
 
     def get_absolute_url(self):
         reverse("Cliente_detail", kwargs={"pk": self.pk})
@@ -43,7 +43,7 @@ class Producto(models.Model):
         verbose_name_plural = ("Productos")
 
     def __str__(self):
-        return self.Nombre_electrodomestico
+        return self.nombre_electrodomestico
 
     def get_absolute_url(self):
         return reverse("Producto_detail", kwargs={"pk": self.pk})
@@ -55,8 +55,7 @@ class Orden(models.Model):
     estado = models.CharField(max_length=2, choices=ESTADOS, default=REPARADA)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    tecnico_epecialista = models.ForeignKey(
-        TecnicoEspecialista, on_delete=models.CASCADE)
+    tecnico_epecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE)
     producto = models.OneToOneField(Producto, on_delete=models.CASCADE)
     fecha_ingreso = models.DateField(auto_now_add=True)
 
@@ -65,7 +64,7 @@ class Orden(models.Model):
         verbose_name_plural = ("Ordenes")
 
     def __str__(self):
-        return self.Orden_id
+        return self.orden_id
 
     def get_absolute_url(self):
         return reverse("Orden_detail", kwargs={"pk": self.pk})
@@ -75,8 +74,10 @@ class Factura(models.Model):
     factura_id = models.AutoField(primary_key=True)
     costo_orden = models.IntegerField()
     orden = models.OneToOneField(Orden, on_delete=models.CASCADE)
-    tecnicoEspecialista = models.ForeignKey(
-        TecnicoEspecialista, on_delete=models.CASCADE)
+<<<<<<< HEAD
+=======
+    tecnicoEspecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE)
+>>>>>>> master
     callCenter = models.ForeignKey(CallCenter, on_delete=models.CASCADE)
     fecha_retiro = models.DateField(auto_now_add=False)
 

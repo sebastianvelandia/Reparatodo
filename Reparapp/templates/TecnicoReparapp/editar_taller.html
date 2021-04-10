@@ -1,0 +1,14 @@
+{% extends 'inicio/index.html' %}
+
+
+    {% block title %}
+    Editar taller
+    {% endblock title %}
+    
+    {% block body %}
+        <form method="POST">
+            {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">Editar</button>
+        </form>
+    {% endblock body %}

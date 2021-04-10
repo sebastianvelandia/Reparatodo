@@ -1,11 +1,23 @@
 {% extends 'inicio/index.html' %}
 {% block title %}
+<<<<<<< HEAD:Reparapp/templates/AdminReparapp/agregar_trabajador.html
     Creacion de trabajadores con sus respectivos cargos
+=======
+Creación de agentes
+>>>>>>> 3b35573207cfc84dceeed079308e23925ac040ec:Reparapp/templates/AdminReparapp/agregar_agente.html
 {% endblock title %}
-    {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Agregar</button>
-    </form>
-    {% endblock body %}
+
+{% load crispy_forms_tags %}
+{% block body %}
+<form method="POST">
+    {% csrf_token %}
+    <br>
+    {{ form | crispy }}
+    <br>
+        <p align="right">
+            <button type="submit" class="btn btn-success">Agregar</button>
+            <button type="reset" class="btn btn-info">Limpiar</button>
+        </p>
+
+</form>
+{% endblock body %}
