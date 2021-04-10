@@ -1,0 +1,41 @@
+{% extends 'inicio/index.html' %}
+
+
+{% block title %}
+Lista de ordenes
+{% endblock title %}
+
+
+{% block body %}
+    {% if  ordenes %}    
+    <table class="default">
+        <tr>
+            <th>Orden id</th>
+            <th>Observaciones</th>
+            <th>Estado</th>
+            <th>Agente</th>
+            <th>Cliente</th>
+            <th>Tecnico Especialista</th>
+            <th>Producto</th>
+            <th>Fecha de ingreso</th>
+        </tr>
+        
+        {% for orden in ordenes %}
+        <tr>
+            <td>{{orden.orden_id}}</td>
+            <td>{{orden.observaciones}}</td>
+            <td>{{orden.agente}}</td>
+            <td>{{orden.cliente}}</td>
+            <td>{{orden.tecnico_epecialista}}</td>
+            <td>{{orden.producto}}</td>
+            <td>{{orden.fecha_ingreso}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+{% endblock body %}
+
+
+
+</html>
