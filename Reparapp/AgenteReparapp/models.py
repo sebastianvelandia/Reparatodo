@@ -74,7 +74,11 @@ class Factura(models.Model):
     factura_id = models.AutoField(primary_key=True)
     costo_orden = models.IntegerField()
     orden = models.OneToOneField(Orden, on_delete=models.CASCADE)
+<<<<<<< HEAD
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
+=======
+    tecnicoEspecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE)
+>>>>>>> parent of c9a8782... login
     callCenter = models.ForeignKey(CallCenter, on_delete=models.CASCADE)
     fecha_retiro = models.DateField(auto_now_add=False)
 

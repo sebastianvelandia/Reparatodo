@@ -24,6 +24,7 @@
         <h1>{{ user.nombres }} Bienvenido</h1>
         <br>
         <a href={% url 'my_admin:listar_agentes' %} class="btn btn-success">Listar Agentes</a>
+<<<<<<< HEAD
         <a href={% url 'my_admin:agregar_agente' %} class="btn btn-info">Agregar Agente</a>
         <br>
         <br>
@@ -45,6 +46,10 @@
         {% endif %}
         {% endblock body %}
     </div>
+=======
+    {% endblock body %}
+     
+>>>>>>> parent of c9a8782... login
     {% block extrajs %}
     {% endblock extrajs %}
 

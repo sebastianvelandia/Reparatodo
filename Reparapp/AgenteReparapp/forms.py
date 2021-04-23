@@ -20,4 +20,8 @@ class OrdenForm(forms.ModelForm):
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
+<<<<<<< HEAD
         fields = ('factura_id', 'costo_orden','orden','agente','callCenter','fecha_retiro')
+=======
+        fields = ('factura_id', 'costo_orden','orden','tecnicoEspecialista','callCenter','fecha_retiro')
+>>>>>>> parent of c9a8782... login
