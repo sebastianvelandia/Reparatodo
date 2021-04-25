@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Reparapp',
         'USER':'root',
-        'PASSWORD':'1234',
+        'PASSWORD':'12345',
         'HOST':'localhost',
         'PORT':'',
     }
@@ -136,3 +137,4 @@ GRAPH_MODELS = {
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS= (os.path.join(BASE_DIR,'static'),)
