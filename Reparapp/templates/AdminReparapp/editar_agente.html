@@ -1,14 +1,18 @@
 {% extends 'inicio/index.html' %}
 
-    {% block title %}
-    Editar Agente
-    {% endblock title %}
-    
-    {% block body %}
-    <br>
-        <form method="POST">
-            {% csrf_token %}
-                {{form.as_p}}
-                <button type="submit">Editar</button>
-        </form>
-    {% endblock body %}
+{% block title %}
+Editar Agente
+{% endblock title %}
+
+{% block body %}
+
+{% load crispy_forms_tags %}
+{% if user.is_admin%}
+<br>
+<form method="POST">
+    {% csrf_token %}
+    {{form | crispy}}
+    <button type="submit" class="btn btn-success">Editar</button>
+</form>
+{% endif %}
+{% endblock body %}

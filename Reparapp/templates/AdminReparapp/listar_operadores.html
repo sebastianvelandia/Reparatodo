@@ -25,8 +25,8 @@ Lista de operadores
         <td>{{operador.user.telefono}}</td>
         <td>{{operador.call_center}}</td>
         <td>
-            <a href={% url 'my_admin:actualizar_operador' operador.user.id %} class="btn btn-success">Editar Técnico</a>
-            <a href={% url 'my_admin:eliminar_operador' operador.user.id %} class="btn btn-danger">Eliminar Técnico</a>
+            <a href={% url 'my_admin:actualizar_operador' operador.user.id %} class="btn btn-success">Editar Operador</a>
+            <a href={% url 'my_admin:eliminar_operador' operador.user.id %} class="btn btn-danger">Eliminar Operador</a>
         </td>
     </tr>
     {% endfor %}
@@ -37,10 +37,6 @@ Lista de operadores
 {% else %}
 <p>No tiene autorización para ingresar a este sitio</p>
 {% endif%}
-
-<a href={% url 'index' %} class="btn btn-success">Volver</a>
+<a href={% url 'index' %} class="btn btn-success">Inicio</a>
 {% endblock body %}
-
-
-
 </html>

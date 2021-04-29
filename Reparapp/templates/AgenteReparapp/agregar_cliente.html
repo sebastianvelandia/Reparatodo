@@ -1,11 +1,21 @@
 {% extends 'inicio/index.html' %}
 {% block title %}
-    Creación de clientes
+Creación de clientes
 {% endblock title %}
-    {% block body %}
-    <form method="POST">
-        {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Agregar</button>
-    </form>
-    {% endblock body %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% if user.is_agente%}
+<form method="POST">
+    {% csrf_token %}
+    {{form | crispy}}
+    <br>
+    <p align="right">
+        <button type="submit" class="btn btn-success">Agregar</button>
+        <a href={% url 'index' %} class="btn btn-info">Volver</a>
+    </p>
+</form>
+{% else %}
+<h1>No tiene permisos para ingresar a este sitio</h1>
+<a href={% url 'index'%} class="btn btn-danger">Inicio</a>
+{% endif%}
+{% endblock body %}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 {% block title %} Iniciar sesión  {% endblock title %}
 
@@ -17,4 +18,19 @@
 
 </div>
 
+=======
+{% extends 'inicio/index.html' %}
+{% block title %}
+Creación de orden
+{% endblock title %}
+{% load crispy_forms_tags %}
+{% block body %}
+{% if user.is_agente%}
+<form method="POST">
+    {% csrf_token %}
+    {{form | crispy}}
+    <button type="submit" class="btn btn-success">Agregar</button>
+</form>
+{% endif %}
+>>>>>>> 16901da45eb4b7f9e03f54b0380a686b6368e158
 {% endblock body %}

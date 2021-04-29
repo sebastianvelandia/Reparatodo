@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, authenticate
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 # Create your views here.
 from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin, EditarForm, AgregarTrabajadorForm, OperadorForm
@@ -14,6 +15,9 @@ from .decorators import allowed_agente
 
 class Inicio(TemplateView):
     template_name = 'inicio/index.html'
+
+def home(request):
+    return render(request,'index.html')
 
 class Login(FormView):
     template_name = 'inicio/login.html'

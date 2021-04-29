@@ -1,41 +1,48 @@
 {% extends 'inicio/index.html' %}
-
-
 {% block title %}
 Lista de ordenes
 {% endblock title %}
 
 
 {% block body %}
-    {% if  ordenes %}    
-    <table class="default">
-        <tr>
-            <th>Orden id</th>
-            <th>Observaciones</th>
-            <th>Estado</th>
-            <th>Agente</th>
-            <th>Cliente</th>
-            <th>Tecnico Especialista</th>
-            <th>Producto</th>
-            <th>Fecha de ingreso</th>
-        </tr>
-        
-        {% for orden in ordenes %}
-        <tr>
-            <td>{{orden.orden_id}}</td>
-            <td>{{orden.observaciones}}</td>
-            <td>{{orden.agente}}</td>
-            <td>{{orden.cliente}}</td>
-            <td>{{orden.tecnico_epecialista}}</td>
-            <td>{{orden.producto}}</td>
-            <td>{{orden.fecha_ingreso}}</td>
-        </tr>
-        {% endfor %}
-    </table>
+{% if user.is_agente or user.is_admin%}
+<table class="table">
+    {% if  ordenes %}
+    <tr>
+        <th>Orden id</th>
+        <th>Observaciones</th>
+        <th>Estado</th>
+        <th>Agente</th>
+        <th>Cliente</th>
+        <th>Tecnico Especialista</th>
+        <th>Producto</th>
+        <th>Fecha de ingreso</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for orden in ordenes %}
+    <tr>
+        <td>{{orden.orden_id}}</td>
+        <td>{{orden.observaciones}}</td>
+        <td>{{orden.estado}}</td>
+        <td>{{orden.agente}}</td>
+        <td>{{orden.cliente}}</td>
+        <td>{{orden.tecnico_epecialista}}</td>
+        <td>{{orden.producto.nombre_electrodomestico}}</td>
+        <td>{{orden.fecha_ingreso}}</td>
+        <td>
+            <a href="{% url 'agente:actualizar_orden' orden.orden_id %}" class="btn btn-success">Editar Orden</a>
+            <a href="{% url 'agente:eliminar_orden' orden.orden_id %}" class="btn btn-danger">Eliminar Orden</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    {%else%}
+    <h1>No existen registros</h1>
     {% endif %}
-
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
 {% endblock body %}
-
-
-
 </html>

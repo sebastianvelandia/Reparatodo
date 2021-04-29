@@ -1,32 +1,45 @@
 {% extends 'inicio/index.html' %}
 
-
 {% block title %}
 Lista de Clientes
 {% endblock title %}
 
 
 {% block body %}
-    {% if  clientes %}    
-    <table class="default">
-        <tr>
-            <th>Cliente id</th>
-            <th>Nombre</th>
-            <th>telefono</th>
-        </tr>
-        
-        {% for cliente in clientes %}
-        <tr>
-            <td>{{cliente.cliente_id}}</td>
-            <td>{{cliente.nombre}}</td>
-            <td>{{cliente.telefono}}</td>
-        </tr>
-        {% endfor %}
-    </table>
+{% if user.is_agente %}
+
+<table class="table">
+    {% if  clientes %}
+    <tr>
+        <th>Cliente id</th>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Opciones</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for cliente in clientes %}
+    <tr>
+        <td>{{cliente.cliente_id}}</td>
+        <td>{{cliente.nombre}}</td>
+        <td>{{cliente.telefono}}</td>
+        <td>
+            {% for orden in cliente.orden.all %}
+                <li>{{ orden }}</li>
+            {% endfor%}
+        </td>
+        <td>
+            <a href="{% url 'agente:actualizar_cliente' cliente.cliente_id %}" class="btn btn-success">Editar Cliente</a>
+            <a href="{% url 'agente:eliminar_cliente' cliente.cliente_id %}" class="btn btn-danger">Eliminar Cliente</a>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No existen clientes</h1>
     {% endif %}
-
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
 {% endblock body %}
-
-
-
 </html>

@@ -4,11 +4,11 @@
     {% block title %}
     Editar orden
     {% endblock title %}
-    
+    {% load crispy_forms_tags %}
     {% block body %}
         <form method="POST">
             {% csrf_token %}
-                {{form.as_p}}
-                <button type="submit">Editar</button>
+                {{form | crispy }}
+                <button type="submit" class="btn btn-success">Editar</button>
         </form>
     {% endblock body %}
