@@ -7,8 +7,8 @@
 {% block body %}
     <form method="POST">
         {% csrf_token %}
-    <h1><strong>¿Desea eliminar el registro de {{ object }}?</strong></h1>
-        <button type= "submit" class="btn btn-danger">Eliminar</button>
+    <h1><strong>¿Desea eliminar el operador{{ object }}?</strong></h1>
+    <button type= "submit" class="btn btn-danger">Eliminar</button>
     </form>
 {% endblock body %}
     

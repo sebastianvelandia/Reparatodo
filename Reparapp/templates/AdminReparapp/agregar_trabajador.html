@@ -9,6 +9,8 @@ Creación de agentes
 
 {% load crispy_forms_tags %}
 {% block body %}
+
+{% if user.is_admin %}
 <form method="POST">
     {% csrf_token %}
     <br>
@@ -18,6 +20,9 @@ Creación de agentes
             <button type="submit" class="btn btn-success">Agregar</button>
             <button type="reset" class="btn btn-info">Limpiar</button>
         </p>
-
 </form>
+{% else %}
+<h1>No tiene permisos para ingresar a este sitio</h1>
+<a href={% url 'index'%} class="btn btn-danger">Inicio</a>
+{% endif %}
 {% endblock body %}

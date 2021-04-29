@@ -1,19 +1,16 @@
 {% extends 'inicio/index.html' %}
-
-
 {% block title %}
-Editar tecnico
+Creación de Operadores
 {% endblock title %}
-
 {% load crispy_forms_tags %}
+
 {% block body %}
 <form method="POST">
     {% csrf_token %}
-    <br>
     {{ form | crispy }}
     <br>
     <p align="right">
-        <button type="submit" class="btn btn-success">Editar</button>
+        <button type="submit" class="btn btn-success">Agregar</button>
     </p>
 </form>
 {% endblock body %}

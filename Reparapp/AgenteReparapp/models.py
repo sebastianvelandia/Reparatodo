@@ -52,7 +52,7 @@ class Producto(models.Model):
 class Orden(models.Model):
     orden_id = models.AutoField(primary_key=True)
     observaciones = models.TextField()
-    estado = models.CharField(max_length=2, choices=ESTADOS, default=REPARADA)
+    estado = models.CharField(max_length=2, choices=ESTADOS, default=RECEPCIONADA)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     tecnico_epecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE)
@@ -74,6 +74,7 @@ class Factura(models.Model):
     factura_id = models.AutoField(primary_key=True)
     costo_orden = models.IntegerField()
     orden = models.OneToOneField(Orden, on_delete=models.CASCADE)
+    agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
     callCenter = models.ForeignKey(CallCenter, on_delete=models.CASCADE)
     fecha_retiro = models.DateField(auto_now_add=False)
 

@@ -1,8 +1,6 @@
 {% extends 'inicio/index.html' %}
-
-
 {% block title %}
-Editar tecnico
+Creación de agentes
 {% endblock title %}
 
 {% load crispy_forms_tags %}
@@ -12,8 +10,9 @@ Editar tecnico
     <br>
     {{ form | crispy }}
     <br>
-    <p align="right">
-        <button type="submit" class="btn btn-success">Editar</button>
-    </p>
+        <p align="right">
+            <button type="submit" class="btn btn-success">Agregar</button>
+            <button type="reset" class="btn btn-info">Limpiar</button>
+        </p>
 </form>
 {% endblock body %}
