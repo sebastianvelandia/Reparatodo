@@ -97,7 +97,7 @@ class NuevaOrdenForm(forms.ModelForm):
         agente = query[0]
         orden = Orden.objects.create(
             agente=agente, cliente=cliente, producto=producto)
-
+        orden.observaciones = self.cleaned_data.get('observaciones')
         query = Cliente.objects.filter(cliente_id='')
         if query:
             cliente = query[0]
