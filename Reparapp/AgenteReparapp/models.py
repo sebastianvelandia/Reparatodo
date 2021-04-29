@@ -32,7 +32,6 @@ class Cliente(models.Model):
     def get_absolute_url(self):
         reverse("Cliente_detail", kwargs={"pk": self.pk})
 
-
 class Producto(models.Model):
     codigo_id = models.AutoField(primary_key=True)
     averia = models.TextField()
@@ -48,14 +47,13 @@ class Producto(models.Model):
     def get_absolute_url(self):
         return reverse("Producto_detail", kwargs={"pk": self.pk})
 
-
 class Orden(models.Model):
     orden_id = models.AutoField(primary_key=True)
     observaciones = models.TextField()
     estado = models.CharField(max_length=2, choices=ESTADOS, default=RECEPCIONADA)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    tecnico_epecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE)
+    tecnico_epecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE, null=True)
     producto = models.OneToOneField(Producto, on_delete=models.CASCADE)
     fecha_ingreso = models.DateField(auto_now_add=True)
 

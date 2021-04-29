@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import ClienteForm, ProductoForm, OrdenForm, FacturaForm
+from .forms import ClienteForm, ProductoForm, OrdenForm, FacturaForm, NuevaOrdenForm
 from .models import Cliente, Producto, Orden, Factura
 
 class ListadoCliente(ListView):
@@ -63,7 +63,7 @@ class ActualizarOrden(UpdateView):
 
 class AgregarOrden(CreateView):
     model = Orden
-    form_class = OrdenForm
+    form_class = NuevaOrdenForm
     template_name = 'AgenteReparapp/agregar_orden.html'
     success_url = reverse_lazy('agente:listar_ordenes')
 
