@@ -135,11 +135,9 @@ GRAPH_MODELS = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-<<<<<<< HEAD
-STATIC_URL = './static/'
-=======
+
 STATIC_URL = '/static/'
 
 
 STATICFILES_DIRS= (os.path.join(BASE_DIR,'static'),)
->>>>>>> 16901da45eb4b7f9e03f54b0380a686b6368e158
+

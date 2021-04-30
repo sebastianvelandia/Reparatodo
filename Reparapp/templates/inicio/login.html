@@ -1,21 +1,15 @@
-{% extends 'base.html' %}
-{% block title %} Iniciar sesión  {% endblock title %} 
-
+{% extends 'index.html' %}
 {% block body %}
-<h1 text="align-center">Inicio de sesión</h1>
-<div class ="col-md-12">
-    <div style="width: 50%; margin:auto">
-        <table class = "table table-striped style"border: 1px solid rgb (8,8,8);>
-            <form method="post">
-                {% csrf_token %}
-                {{ forms.as_p }}
-                <input class="btn btn-primary" type="submit" value="Save">
-            </form>
-        </table>
-    </div>
-    
-
-</div>
-
-
+    <form method="POST">
+        <div class="container">
+        {% csrf_token %}
+        <form method="POST">
+            {% csrf_token %}
+            <br>
+            {{ form.as_p }}
+            <br>
+                    <button type="submit" class="btn btn-success">Login</button>
+        </form>
+        </div>
+    </form>
 {% endblock body %}

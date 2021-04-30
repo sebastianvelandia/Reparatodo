@@ -1,0 +1,9 @@
+.container-fondo{
+    background-image: url('images/fondo.JPG');
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+
+  }

@@ -121,9 +121,8 @@ class OrdenForm(forms.ModelForm):
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
-<<<<<<< HEAD
-        fields = ('factura_id', 'costo_orden','orden','agente','callCenter','fecha_retiro')
-=======
+
+
         fields = ('factura_id', 'costo_orden', 'orden',
                   'agente', 'callCenter', 'fecha_retiro')
->>>>>>> 16901da45eb4b7f9e03f54b0380a686b6368e158
+
