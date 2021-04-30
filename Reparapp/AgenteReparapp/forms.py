@@ -104,7 +104,6 @@ class NuevaOrdenForm(forms.ModelForm):
             cliente.delete()
         return orden
 
-
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto

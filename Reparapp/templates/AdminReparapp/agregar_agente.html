@@ -19,6 +19,6 @@ Creación de agentes
 </form>
 {% else %}
 <h1>No tiene permisos para ingresar a este sitio</h1>
-<a href={% url 'index'%} class="btn btn-danger">Inicio</a>
+<a href="{% url 'index'%}" class="btn btn-danger">Inicio</a>
 {% endif %}
 {% endblock body %}
