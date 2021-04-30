@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class="container">
+
+    <br>
+    <br>
+    <br>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="buscar">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    {% if orden %}
+    <table class="table">
+        <tr>
+            <th>Orden Id</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+        </tr>
+        <tr>
+            <td>{{orden.orden_id}}</td>
+            <td>{{orden.estado}}</td>
+            <td>{{orden.cliente.nombre}}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+</div>
+
+
+{% endblock body %}

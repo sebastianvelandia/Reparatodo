@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-{% extends 'base.html' %}
-{% block title %} Iniciar sesión  {% endblock title %}
-
-{% block body %}
-<h1 text ="align-center">Creación de la orden de servicio</h1>
-<div class ="col-md-12">
-    <div style="width: 50%; margin:auto">
-        <table class = "table table-striped style"border: 1px solid rgb (8,8,8);>
-            <form method="post">
-                {% csrf_token %}
-                {{ forms.as_p }}
-                <input class="btn btn-primary" type="submit" value="Save">
-            </form>
-        </table>
-    </div>
-    
-
-</div>
-
-=======
 {% extends 'inicio/index.html' %}
 {% block title %}
 Creación de orden
@@ -32,5 +11,4 @@ Creación de orden
     <button type="submit" class="btn btn-success">Agregar</button>
 </form>
 {% endif %}
->>>>>>> 16901da45eb4b7f9e03f54b0380a686b6368e158
 {% endblock body %}
