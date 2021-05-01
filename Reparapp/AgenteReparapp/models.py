@@ -3,11 +3,11 @@ from AdminReparapp.models import Agente, TecnicoEspecialista
 from TecnicoReparapp.models import CallCenter
 
 # Create your models here.
-REPARADA = 'RE'
-RECEPCIONADA = 'RC'
-EN_REPARACION = 'ER'
-INFORMADA = 'IN'
-CERRADA = 'CE'
+REPARADA = 'REPARADA'
+RECEPCIONADA = 'RECEPCIONADA'
+EN_REPARACION = 'EN REPARACIÓN'
+INFORMADA = 'INFORMADA'
+CERRADA = 'CERRADA'
 ESTADOS = (
     (REPARADA, 'Reparado'),
     (RECEPCIONADA, 'Recepcionado'),
@@ -15,7 +15,6 @@ ESTADOS = (
     (INFORMADA, 'Informada'),
     (CERRADA, 'Cerrada'),
 )
-
 
 class Cliente(models.Model):
     cliente_id = models.CharField(primary_key=True, max_length=50)
@@ -50,7 +49,7 @@ class Producto(models.Model):
 class Orden(models.Model):
     orden_id = models.AutoField(primary_key=True)
     observaciones = models.TextField()
-    estado = models.CharField(max_length=2, choices=ESTADOS, default=RECEPCIONADA)
+    estado = models.CharField(max_length=20, choices=ESTADOS, default=RECEPCIONADA)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     tecnico_epecialista = models.ForeignKey(TecnicoEspecialista, on_delete=models.CASCADE, null=True)

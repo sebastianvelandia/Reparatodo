@@ -9,6 +9,7 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="buscar">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <br>
     {% if orden %}
     <table class="table">
         <tr>
@@ -16,11 +17,13 @@
             <th>Estado</th>
             <th>Cliente</th>
         </tr>
+        {% for o in orden%}
         <tr>
-            <td>{{orden.orden_id}}</td>
-            <td>{{orden.estado}}</td>
-            <td>{{orden.cliente.nombre}}</td>
+            <td>{{o.orden_id}}</td>
+            <td>{{o.estado}}</td>
+            <td>{{o.cliente.nombre}}</td>
         </tr>
+        {% endfor %}
     </table>
     {% endif %}
 
