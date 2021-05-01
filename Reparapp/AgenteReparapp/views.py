@@ -6,6 +6,7 @@ from django.views.generic import TemplateView, ListView, UpdateView, CreateView,
 from django.urls import reverse_lazy
 from .forms import ClienteForm, ProductoForm, OrdenForm, FacturaForm, NuevaOrdenForm
 from .models import Cliente, Producto, Orden, Factura
+from django.shortcuts import render
 
 
 class ListadoCliente(ListView):
@@ -125,3 +126,14 @@ class EliminarFactura(SuccessMessageMixin, DeleteView):
 
 class Inicio(TemplateView):
     template_name = 'inicio/index.html'
+
+class Consulta(TemplateView):
+    template_name='inicio/consulta.html'
+
+def consultarOrden(request):
+    queryset=request.GET.get('buscar')
+    orden=Orden.objects.all()
+    print(queryset)
+    if queryset: 
+        orden=Orden.objects.filter(orden_id=queryset)
+    return render(request,'inicio/consulta.html',{'orden': orden})

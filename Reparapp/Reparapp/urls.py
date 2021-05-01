@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from AdminReparapp.views import Inicio, Login, cerrar_sesion, home
+from AgenteReparapp.views import consultarOrden, Consulta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,7 @@ urlpatterns = [
     path('inicio/', login_required(Inicio.as_view()), name='index'),
     path('accounts/login/', Login.as_view(), name = 'login'),
     path('',home, name = 'home'),
-    path('logout/', login_required(cerrar_sesion), name='logout')
+    path('logout/', login_required(cerrar_sesion), name='logout'),
+    path('consulta/',Consulta.as_view(),name='consulta' ),
+    path('consultar/',consultarOrden,name='consultar')
 ]

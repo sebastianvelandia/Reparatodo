@@ -121,5 +121,8 @@ class OrdenForm(forms.ModelForm):
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
+
+
         fields = ('factura_id', 'costo_orden', 'orden',
                   'agente', 'callCenter', 'fecha_retiro')
+
