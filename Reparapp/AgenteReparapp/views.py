@@ -122,3 +122,6 @@ class EliminarFactura(SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super(EliminarFactura, self).delete(request, *args, **kwargs)
+
+class Inicio(TemplateView):
+    template_name = 'inicio/index.html'
