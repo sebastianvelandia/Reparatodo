@@ -8,8 +8,6 @@ urlpatterns = [
     path('listar_agentes/', login_required(ListadoAgente.as_view()), name='listar_agentes'),
     path('actualizar_agente/<int:pk>', login_required(ActualizarAgente.as_view()), name='actualizar_agente'),
     path('eliminar_agente/<int:pk>', login_required(EliminarAgente.as_view()), name ='eliminar_agente'),
-    
-    #path('agregar/', AgregarTrabajador.as_view(), name ='agregar_trabajador'),
 
     path('agregar_operador/', login_required(AgregarOperador.as_view()), name='agregar_operador'),
     path('listar_operadores/', login_required(ListadoOperador.as_view()), name='listar_operadores'),
