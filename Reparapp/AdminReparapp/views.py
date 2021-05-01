@@ -1,3 +1,6 @@
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.db.models import Q
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.views.decorators.cache import never_cache
@@ -13,11 +16,24 @@ from .forms import AgenteForm, TecnicoEspecialistaForm, FormularioLogin, EditarF
 from .models import Agente, TecnicoEspecialista, Usuario, Operador
 from .decorators import allowed_agente
 
+
 class Inicio(TemplateView):
     template_name = 'inicio/index.html'
 
+
 def home(request):
-    return render(request,'index.html')
+    return render(request, 'index.html')
+
+# def listar_trabajadores(request):
+#     busqueda = request.GET.get("buscar")
+#     trabajadores = Usuario.objects.filter(is_admin='false')
+
+#     if busqueda:
+#         Usuario.objects.filter(is_admin = 'false'
+
+
+#         )
+
 
 class Login(FormView):
     template_name = 'inicio/login.html'
@@ -36,21 +52,11 @@ class Login(FormView):
         login(self.request, form.get_user())
         return super(Login, self).form_valid(form)
 
+
 def cerrar_sesion(request):
     logout(request)
     return HttpResponseRedirect('/accounts/login/')
 
-class ListadoAgente(ListView):
-    model = Agente
-    template_name = 'AdminReparapp/listar_agentes.html'
-    context_object_name = 'agentes'
-    queryset = Agente.objects.all()
-
-class ActualizarAgente(UpdateView):
-    model = Usuario
-    form_class = EditarForm
-    template_name = 'AdminReparapp/editar_agente.html'
-    success_url = reverse_lazy('my_admin:listar_agentes')
 
 class AgregarTrabajador(CreateView):
     model = Usuario
@@ -58,15 +64,38 @@ class AgregarTrabajador(CreateView):
     template_name = 'AdminReparapp/agregar.html'
     success_url = reverse_lazy('my_admin:listar_agentes')
 
-class AgregarAgente(CreateView):
+
+class ListadoAgente(ListView):
+    model = Agente
+    template_name = 'AdminReparapp/listar_agentes.html'
+    context_object_name = 'agentes'
+    queryset = Agente.objects.all()
+
+
+class AgregarAgente(SuccessMessageMixin, CreateView):
     model = Usuario
     form_class = AgenteForm
     template_name = 'AdminReparapp/agregar_agente.html'
     success_url = reverse_lazy('my_admin:listar_agentes')
+    success_message = "El Agente fue creado correctamente"
 
-class EliminarAgente(DeleteView):
-    model = Agente
+
+class ActualizarAgente(SuccessMessageMixin, UpdateView):
+    model = Usuario
+    form_class = EditarForm
+    template_name = 'AdminReparapp/editar_agente.html'
     success_url = reverse_lazy('my_admin:listar_agentes')
+    success_message = "El Agente fue modificado correctamente"
+
+
+class EliminarAgente(SuccessMessageMixin, DeleteView):
+    model = Usuario
+    success_url = reverse_lazy('my_admin:listar_agentes')
+    success_message = "El Agente fue eliminado correctamente"
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(EliminarAgente, self).delete(request, *args, **kwargs)
+
 
 class ListadoTecnico(ListView):
     model = TecnicoEspecialista
@@ -74,21 +103,31 @@ class ListadoTecnico(ListView):
     context_object_name = 'tecnicos'
     queryset = TecnicoEspecialista.objects.all()
 
-class ActualizarTecnico(UpdateView):
-    model = Usuario
-    form_class = EditarForm
-    template_name = 'AdminReparapp/editar_tecnico.html'
-    success_url = reverse_lazy('my_admin:listar_tecnicos')
 
-class AgregarTecnico(CreateView):
+class AgregarTecnico(SuccessMessageMixin, CreateView):
     model = Usuario
     form_class = TecnicoEspecialistaForm
     template_name = 'AdminReparapp/agregar_tecnico.html'
     success_url = reverse_lazy('my_admin:listar_tecnicos')
+    success_message = "El Técnico fue creado correctamente"
 
-class EliminarTecnico(DeleteView):
-    model = TecnicoEspecialista
+
+class ActualizarTecnico(SuccessMessageMixin, UpdateView):
+    model = Usuario
+    form_class = EditarForm
+    template_name = 'AdminReparapp/editar_tecnico.html'
     success_url = reverse_lazy('my_admin:listar_tecnicos')
+    success_message = "El Técnico fue modificado correctamente"
+
+
+class EliminarTecnico(SuccessMessageMixin, DeleteView):
+    model = Usuario
+    success_url = reverse_lazy('my_admin:listar_tecnicos')
+    success_message = "El Técnico fue eliminado correctamente"
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(EliminarTecnico, self).delete(request, *args, **kwargs)
+
 
 class ListadoOperador(ListView):
     model = Operador
@@ -96,24 +135,30 @@ class ListadoOperador(ListView):
     context_object_name = 'operadores'
     queryset = Operador.objects.all()
 
-class ActualizarOperador(UpdateView):
-    model = Usuario
-    form_class = EditarForm
-    template_name = 'AdminReparapp/editar_operador.html'
-    success_url = reverse_lazy('my_admin:listar_operadores')
 
-class AgregarOperador(CreateView):
+class AgregarOperador(SuccessMessageMixin, CreateView):
     model = Usuario
     form_class = OperadorForm
     template_name = 'AdminReparapp/agregar_operador.html'
     success_url = reverse_lazy('my_admin:listar_operadores')
+    success_message = "El Operador fue creado satisfactoriamente"
 
-class EliminarOperador(DeleteView):
-    model = TecnicoEspecialista
+
+class ActualizarOperador(SuccessMessageMixin, UpdateView):
+    model = Usuario
+    form_class = EditarForm
+    template_name = 'AdminReparapp/editar_operador.html'
     success_url = reverse_lazy('my_admin:listar_operadores')
+    success_message = "El Operador fue modificado correctamente"
 
 
-
+class EliminarOperador(SuccessMessageMixin, DeleteView):
+    model = Usuario
+    success_url = reverse_lazy('my_admin:listar_operadores')
+    success_message = "El Operador fue eliminado correctamente"
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(EliminarOperador, self).delete(request, *args, **kwargs)
 
 # def login_view(request):
 #     if request.method == 'POST':

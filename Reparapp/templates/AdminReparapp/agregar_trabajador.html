@@ -1,0 +1,28 @@
+{% extends 'inicio/index.html' %}
+{% block title %}
+<<<<<<< HEAD:Reparapp/templates/AdminReparapp/agregar_trabajador.html
+    Creacion de trabajadores con sus respectivos cargos
+=======
+Creación de agentes
+>>>>>>> 3b35573207cfc84dceeed079308e23925ac040ec:Reparapp/templates/AdminReparapp/agregar_agente.html
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+{% block body %}
+
+{% if user.is_admin %}
+<form method="POST">
+    {% csrf_token %}
+    <br>
+    {{ form | crispy }}
+    <br>
+        <p align="right">
+            <button type="submit" class="btn btn-success">Agregar</button>
+            <button type="reset" class="btn btn-info">Limpiar</button>
+        </p>
+</form>
+{% else %}
+<h1>No tiene permisos para ingresar a este sitio</h1>
+<a href={% url 'index'%} class="btn btn-danger">Inicio</a>
+{% endif %}
+{% endblock body %}

@@ -1,56 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Index {% endblock title %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    {% block extracss %}
+    <title>Document</title>
+</head>
+<body>
     
-    {% endblock extracss %}
-
+=======
+>>>>>>> BackendCMAP
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{% block title %} {% endblock title %}</title>
+   {% load static %}  
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body>
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #061c29;">
     <div class="container">
-        {% block body %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-        <a href={% url 'logout' %} class="btn btn-success">Logout</a>
-        <br>
-        {% if user.is_admin %}
-        <h1>{{ user.nombres }} Bienvenido</h1>
-        <br>
-        <a href={% url 'my_admin:listar_agentes' %} class="btn btn-success">Listar Agentes</a>
-        <a href={% url 'my_admin:agregar_agente' %} class="btn btn-info">Agregar Agente</a>
-        <br>
-        <br>
-        <a href={% url 'my_admin:listar_tecnicos' %} class="btn btn-success">Listar Técnicos</a>
-        <a href={% url 'my_admin:agregar_tecnico' %} class="btn btn-info">Agregar Técnico</a>
-        <br>
-        <br>
-        <a href={% url 'my_admin:listar_operadores' %} class="btn btn-success">Listar Operador</a>
-        <a href={% url 'my_admin:agregar_operador' %} class="btn btn-info">Agregar Operador</a>
-        <br>
-        {% elif user.is_agente %}
-        <h1> Bienvenido agente {{ user.nombres }}</h1>
-        <br>
-        <a href={% url 'agente:agregar_cliente' %} class="btn btn-success">Agregar Cliente</a>
-        <a href={% url 'agente:listar_clientes' %} class="btn btn-info">Listar Clientes</a>
-        <br>
-        <br>
-        <a href={% url 'agente:agregar_orden' %} class="btn btn-success">Crear Orden</a>
-        <a href={% url 'agente:listar_ordenes' %} class="btn btn-info">Listar Ordenes</a>
-        {% elif user.is_tecnico %}
-        <h1> Bienvenido técnico {{ user.nombres }}</h1>
-        {% elif user.is_operador %}
-        <h1> Bienvenido operador {{ user.nombres }}</h1>
-        {% endif %}
-        {% endblock body %}
+        <a class="navbar-brand"  style="color: cornsilk;" href="{% url 'home' %}"><img src="{% static 'images/logs2.png'%}" width="35%"
+            alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" style="color: cornsilk;" href="{% url 'consulta' %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>Consultar orden 
+                        
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: cornsilk;" href="{% url 'login'%}"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                      </svg>Iniciar sesión</a>
+                </li>
+                
+            </ul>
+        </div>
+<<<<<<< HEAD
     </div>
-    {% block extrajs %}
-    {% endblock extrajs %}
+</nav>
+
+<body>
+
+    
+
+    {% block body%}
+    <div width="50%">
+        <h3 class="texto-home"> Bienvenido</h3>
+    </div>
+=======
+    </div>
+</nav>
+
+<body>
+
+    
+
+    {% block body%}
+    <div width="50%">
+        <h3 class="texto-home"> Bienvenido</h3>
+    </div>
+>>>>>>> BackendCMAP
+    
+    <div class="container-fondo"><img src="{% static 'images/fondos.JPG'%}" width="100%"
+        alt="fondo"> </div>
+        
+    {% endblock body%}
+      
+  
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> BackendCMAP
 </body>
+  
+   <footer class="py-3 bg-light" style="bottom: 0;width: 100%;">
+      <div class="container"  >
+         <p class="text-center" style="text-align: center;">Copyright &copy; Esthefania Lemus -- 2021</p>
+      </div>
+   </footer>
+
 </html>

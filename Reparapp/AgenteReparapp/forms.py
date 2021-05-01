@@ -19,7 +19,8 @@ class NuevaOrdenForm(forms.ModelForm):
             'required': 'required'
         }
     ))
-    cliente_identificacion= forms.ModelChoiceField(queryset=Cliente.objects.all())
+    cliente_identificacion = forms.ModelChoiceField(
+        queryset=Cliente.objects.all())
 
     nombre_cliente = forms.CharField(label='Nombre del cliente', widget=forms.TextInput(
         attrs={
@@ -32,7 +33,7 @@ class NuevaOrdenForm(forms.ModelForm):
     telefono_cliente = forms.CharField(label='Teléfono del cliente', widget=forms.TextInput(
         attrs={
             'class': 'form-control',
-            'placeholder': 'Ingrese la cédula',
+            'placeholder': 'Teléfono del cliente',
             'id': 'telefono_cliente',
             'required': 'required'
         }
@@ -97,7 +98,7 @@ class NuevaOrdenForm(forms.ModelForm):
         agente = query[0]
         orden = Orden.objects.create(
             agente=agente, cliente=cliente, producto=producto)
-
+        orden.observaciones = self.cleaned_data.get('observaciones')
         query = Cliente.objects.filter(cliente_id='')
         if query:
             cliente = query[0]
@@ -114,12 +115,14 @@ class ProductoForm(forms.ModelForm):
 class OrdenForm(forms.ModelForm):
     class Meta:
         model = Orden
-        fields = ('orden_id', 'observaciones', 'estado',
-                  'agente', 'cliente','producto')
+        fields = ('estado','cliente','producto')
 
 
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
+
+
         fields = ('factura_id', 'costo_orden', 'orden',
                   'agente', 'callCenter', 'fecha_retiro')
+

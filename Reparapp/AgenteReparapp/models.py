@@ -67,7 +67,6 @@ class Orden(models.Model):
     def get_absolute_url(self):
         return reverse("Orden_detail", kwargs={"pk": self.pk})
 
-
 class Factura(models.Model):
     factura_id = models.AutoField(primary_key=True)
     costo_orden = models.IntegerField()
