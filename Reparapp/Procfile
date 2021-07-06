@@ -1,1 +1,1 @@
-web: gunicorn Reparapp.wsgi --log-file -
+web: gunicorn Reparapp.wsgi

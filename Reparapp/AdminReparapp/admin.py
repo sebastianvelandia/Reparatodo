@@ -7,7 +7,7 @@ from TecnicoReparapp.models import Taller, CallCenter
 # admin.site.register(Operador)
 # admin.site.register(TecnicoEspecialista)
 # admin.site.register(Orden)
-# admin.site.register(Cliente)
+admin.site.register(Cliente)
 # admin.site.register(Usuario)
 admin.site.register(Taller)
 admin.site.register(CallCenter)

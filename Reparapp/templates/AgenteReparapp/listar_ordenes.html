@@ -10,7 +10,6 @@ Lista de ordenes
     {% if  ordenes %}
     <tr>
         <th>Orden id</th>
-        <th>Observaciones</th>
         <th>Estado</th>
         <th>Agente</th>
         <th>Cliente</th>
@@ -23,7 +22,6 @@ Lista de ordenes
     {% for orden in ordenes %}
     <tr>
         <td>{{orden.orden_id}}</td>
-        <td>{{orden.observaciones}}</td>
         <td>{{orden.estado}}</td>
         <td>{{orden.agente}}</td>
         <td>{{orden.cliente}}</td>

@@ -6,7 +6,6 @@ Editar Cliente
 {% endblock title %}
 {% load crispy_forms_tags %}
 {% block body %}
-
 {% if user.is_agente%}
 <form method="POST">
     {% csrf_token %}

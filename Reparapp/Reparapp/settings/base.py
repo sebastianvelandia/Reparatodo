@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '^79su5dy%4!k*#-qg^&57@d&7z9)uujiar!x2)hn5ro7lzelr6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -73,33 +73,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Reparapp.wsgi.application'
-
-
-# Database local
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'Reparapp',
-#         'USER':'root',
-#         'PASSWORD':'1234',
-#         'HOST':'localhost',
-#         'PORT':'',
-#     }
-# }
-
-#production
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd317aipki6g5lb',
-        'USER':'wwplfhuciodqwn',
-        'PASSWORD':'f8b62e757fb2c4a539c6ca4a89714f2767d598e5a94cfd0f30b703eed30b1bf5',
-        'HOST':'ec2-23-21-4-7.compute-1.amazonaws.com',
-        'PORT':'5432',
-    }
-}
 
 
 # Password validation
@@ -151,5 +124,5 @@ GRAPH_MODELS = {
 STATIC_URL = '/static/'
 
 
-STATICFILES_DIRS= (os.path.join(BASE_DIR,'static'),)
+STATICFILES_DIRS= (os.path.join(BASE_DIR,'/static'),)
 

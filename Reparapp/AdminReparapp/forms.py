@@ -49,7 +49,7 @@ class TecnicoEspecialistaForm(forms.ModelForm):
             'required': 'required'
         }
     ))
-    taller = forms.ModelChoiceField(queryset=Taller.objects.all())
+    taller = forms.ModelChoiceField(queryset=Taller.objects.all(), required=True)
     class Meta:
         model = Usuario
         fields = ('nombres', 'apellidos', 'email', 'telefono')

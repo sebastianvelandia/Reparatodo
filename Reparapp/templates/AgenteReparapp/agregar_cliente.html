@@ -5,6 +5,7 @@ Creación de clientes
 {% load crispy_forms_tags %}
 {% block body %}
 {% if user.is_agente%}
+<h1 align="center">Agregar Cliente</h1>
 <form method="POST">
     {% csrf_token %}
     {{form | crispy}}

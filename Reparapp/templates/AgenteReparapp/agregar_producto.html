@@ -3,6 +3,7 @@
     Creación de productos
 {% endblock title %}
     {% block body %}
+    <h1 align="center">Agregar Producto</h1>
     <form method="POST">
         {% csrf_token %}
             {{form.as_p}}

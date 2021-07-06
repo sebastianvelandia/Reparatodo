@@ -196,6 +196,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'agente:agregar_orden' %}">Agregar Orden</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'agente:agregar_orden_cliente' %}">Agregar Orden y Cliente nuevo</a>
+                </li>
               </ul>
             </div>
           </li>
@@ -305,7 +308,9 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   {% if messages %}
+  <ul class="messages"></ul>
   {% for m in messages%}
+  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
   <script>
     Swal.fire({
       "title": "Atención",
@@ -315,6 +320,7 @@
   </script>
   {% endfor%}
   {% endif %}
+  
 </body>
 
 </html>

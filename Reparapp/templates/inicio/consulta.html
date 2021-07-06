@@ -16,12 +16,14 @@
             <th>Orden Id</th>
             <th>Estado</th>
             <th>Cliente</th>
+            <th>Observaciones</th>
         </tr>
         {% for o in orden%}
         <tr>
             <td>{{o.orden_id}}</td>
             <td>{{o.estado}}</td>
             <td>{{o.cliente.nombre}}</td>
+            <td>{{o.observaciones}}</td>
         </tr>
         {% endfor %}
     </table>

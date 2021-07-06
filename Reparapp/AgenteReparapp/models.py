@@ -26,7 +26,7 @@ class Cliente(models.Model):
         verbose_name_plural = ("Clientes")
 
     def __str__(self):
-        return self.nombre
+        return self.cliente_id
 
     def get_absolute_url(self):
         reverse("Cliente_detail", kwargs={"pk": self.pk})
@@ -48,7 +48,7 @@ class Producto(models.Model):
 
 class Orden(models.Model):
     orden_id = models.AutoField(primary_key=True)
-    observaciones = models.TextField()
+    observaciones = models.TextField(max_length=300)
     estado = models.CharField(max_length=20, choices=ESTADOS, default=RECEPCIONADA)
     agente = models.ForeignKey(Agente, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -58,7 +58,7 @@ class Orden(models.Model):
 
     class Meta:
         verbose_name = ("Orden")
-        verbose_name_plural = ("Ordenes")
+        verbose_name_plural = ("Órdenes")
 
     def __str__(self):
         return self.orden_id

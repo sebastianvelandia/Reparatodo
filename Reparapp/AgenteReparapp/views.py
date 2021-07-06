@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import ClienteForm, ProductoForm, OrdenForm, FacturaForm, NuevaOrdenForm
+from .forms import ClienteForm, NuevaOrdenForm, ProductoForm, OrdenForm, FacturaForm, NuevaOrdenClienteForm
 from .models import Cliente, Producto, Orden, Factura
 from django.shortcuts import render
 
@@ -81,14 +81,19 @@ class ListadoOrden(ListView):
     context_object_name = 'ordenes'
     queryset = Orden.objects.all()
 
+class AgregarOrdenCliente(SuccessMessageMixin, CreateView):
+    model = Orden
+    form_class = NuevaOrdenClienteForm
+    template_name = 'AgenteReparapp/agregar_orden.html'
+    success_url = reverse_lazy('agente:listar_ordenes')
+    success_message = "La orden fue creada correctamente"
 
 class AgregarOrden(SuccessMessageMixin, CreateView):
     model = Orden
     form_class = NuevaOrdenForm
     template_name = 'AgenteReparapp/agregar_orden.html'
     success_url = reverse_lazy('agente:listar_ordenes')
-    success_message = "La orden fue creada correctamente"
-
+    success_message = 'La orden fue creada correctamente'
 
 class ActualizarOrden(SuccessMessageMixin, UpdateView):
     model = Orden
@@ -96,7 +101,6 @@ class ActualizarOrden(SuccessMessageMixin, UpdateView):
     template_name = 'AgenteReparapp/editar_orden.html'
     success_url = reverse_lazy('agente:listar_ordenes')
     success_message = "La orden fue modificada correctamente"
-
 
 class EliminarOrden(SuccessMessageMixin, DeleteView):
     model = Orden
@@ -107,13 +111,11 @@ class EliminarOrden(SuccessMessageMixin, DeleteView):
         messages.success(self.request, self.success_message)
         return super(EliminarOrden, self).delete(request, *args, **kwargs)
 
-
 class ListadoFactura(ListView):
     model = Factura
     template_name = 'AgenteReparapp/listar_facturas.html'
     context_object_name = 'facturas'
     queryset = Factura.objects.all()
-
 
 class AgregarFactura(SuccessMessageMixin, CreateView):
     model = Factura
@@ -156,5 +158,5 @@ def consultarOrden(request):
         if queryset:
             orden = Orden.objects.filter(orden_id=int(queryset))
     except:
-        print("no se pudo")
+        print("No fue posible encontrar la orden")
     return render(request, 'inicio/consulta.html', {'orden': orden})

@@ -3,6 +3,7 @@
     Creación de factura
 {% endblock title %}
     {% block body %}
+    <h1 align="center">Agregar Factura</h1>
     <form method="POST">
         {% csrf_token %}
             {{form.as_p}}
