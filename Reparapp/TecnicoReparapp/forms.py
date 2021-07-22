@@ -10,3 +10,4 @@ class CallCenterForm(forms.ModelForm):
     class Meta:
         model = CallCenter
         fields = ('callCenter_NIT', 'nombre_callcenter','direccion')
+

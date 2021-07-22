@@ -2,11 +2,16 @@
 {% block title %}
     Creación de factura
 {% endblock title %}
+
+{% load crispy_forms_tags %}
+
     {% block body %}
-    <h1 align="center">Agregar Factura</h1>
+    <h1 align="center">Generar Factura</h1>
     <form method="POST">
         {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Agregar</button>
+            {{form | crispy}}
+            <p align="right">
+            <button class="btn btn-primary" type="submit">Agregar</button>
+            </p>
     </form>
     {% endblock body %}

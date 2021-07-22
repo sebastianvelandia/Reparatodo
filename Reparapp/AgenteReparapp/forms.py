@@ -1,8 +1,10 @@
 from django import forms
-from django.core.checks import messages
+from django.core.exceptions import ValidationError
 from django.db import transaction
+from django.forms import fields, widgets
 from .models import Cliente, Producto, Orden, Factura
-from AdminReparapp.models import Agente
+from AdminReparapp.models import Agente, Usuario
+from TecnicoReparapp.models import CallCenter
 
 
 class ClienteForm(forms.ModelForm):
@@ -127,15 +129,6 @@ class NuevaOrdenForm(forms.ModelForm):
         }
     ))
 
-    # observaciones_orden = forms.CharField(label='Observaciones', widget=forms.Textarea(
-    #     attrs={
-    #         'class': 'form-control',
-    #         'placeholder': 'Ingrese observaciones',
-    #         'id': 'observaciones_orden',
-    #         'required': 'required'
-    #     }
-    # ))
-
     agente_id = forms.CharField(label='Ingrese id del agente :', widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
@@ -183,7 +176,79 @@ class OrdenForm(forms.ModelForm):
 class FacturaForm(forms.ModelForm):
     class Meta:
         model = Factura
-
-        fields = ('factura_id', 'costo_orden', 'orden',
+        fields = ('costo_orden', 'orden',
                   'agente', 'callCenter', 'fecha_retiro')
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class InformarOrdenForm(forms.ModelForm):
+    class Meta:
+        model = Orden
+        fields = ('estado',)
+
+class NuevaFacturaForm(forms.ModelForm):
+    class Meta:
+        model = Factura
+        fields = ('orden','agente', 'costo_orden', 'fecha_retiro', 'callCenter')
+        widgets={
+            'fecha_retiro' : DateInput()
+        }
+
+    observaciones = forms.CharField(label='Observaciones del técnico', widget=forms.Textarea(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Ingrese el electrodoméstico',
+            'id': 'electrodomestico',
+            'readonly':True
+        }
+    ))
+    
+    #orden = 0
+    def __init__(self, *args, **kwargs):
+        m_orden = kwargs.pop('orden_id')
+        m_usuario = kwargs.pop('usuario_id')
+        usuario = Usuario.objects.filter(id = m_usuario)
+        agente = Agente.objects.filter(user = usuario[0])
+        ordenes = Orden.objects.filter(orden_id = m_orden)
+        cc = CallCenter.objects.all()
+        super(NuevaFacturaForm, self).__init__(*args, **kwargs)
+        self.fields['orden'].queryset = ordenes
+        self.fields['orden'].initial = ordenes[0]
+        self.fields['orden'].widget.attrs['readonly'] = True
+        self.fields['costo_orden'].label = 'Agregue el costo'
+        self.fields['agente'].queryset = agente
+        self.fields['agente'].initial = agente[0]
+        self.fields['agente'].widget.attrs['readonly'] = True
+        self.fields['observaciones'].initial = ordenes[0].observaciones
+        self.fields['callCenter'].initial = cc[0]
+
+    # def clean_agente(self):
+    #     instance = getattr(self, 'instance', None)
+    #     if instance:
+    #         return instance.agente
+    #     else:
+    #         return self.cleaned_data.get('agente', None)
+    
+    # def clean_orden(self):
+    #     instance = getattr(self, 'instance', None)
+    #     if instance:
+    #         return instance.orden
+    #     else:
+    #         return self.cleaned_data.get('orden', None)
+
+    # @transaction.atomic
+    # def save(self):
+    #     factura = super().save(commit=False)
+    #     factura.orden()
+
+class AgregarTecnicoOrdenForm(forms.ModelForm):
+    class Meta:
+        model = Orden
+        fields = ('estado','tecnico_epecialista')
+
+
+class RepararOrdenForm(forms.ModelForm):
+    class Meta:
+        model = Orden
+        fields = ('estado','observaciones')

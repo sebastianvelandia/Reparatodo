@@ -1,10 +1,11 @@
+from AdminReparapp.models import Agente, Usuario
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
 from django.urls import reverse_lazy
-from .forms import ClienteForm, NuevaOrdenForm, ProductoForm, OrdenForm, FacturaForm, NuevaOrdenClienteForm
+from .forms import ClienteForm, InformarOrdenForm, NuevaFacturaForm, NuevaOrdenForm, ProductoForm, OrdenForm, FacturaForm, NuevaOrdenClienteForm
 from .models import Cliente, Producto, Orden, Factura
 from django.shortcuts import render
 
@@ -79,7 +80,7 @@ class ListadoOrden(ListView):
     model = Orden
     template_name = 'AgenteReparapp/listar_ordenes.html'
     context_object_name = 'ordenes'
-    queryset = Orden.objects.all()
+    queryset = Orden.objects.exclude(estado = 'CERRADA')
 
 class AgregarOrdenCliente(SuccessMessageMixin, CreateView):
     model = Orden
@@ -160,3 +161,41 @@ def consultarOrden(request):
     except:
         print("No fue posible encontrar la orden")
     return render(request, 'inicio/consulta.html', {'orden': orden})
+
+def listar_ordenes_reparadas(request, id):
+    orden =  0
+    try:
+        if id:
+            m_user= Usuario.objects.filter(id = id)
+            agente = Agente.objects.filter(user = m_user[0])
+            orden = agente[0].orden_set.filter(estado = 'REPARADA')
+    except:
+        print("No fue posible encontrar la orden")
+    return render(request, 'AgenteReparapp/listar_ordenes_reparadas.html', {'ordenes': orden})
+
+def consultar_orden_agente(request):
+    queryset = request.GET.get('buscar')
+    orden= 0
+    try:
+        if queryset:
+            orden = Orden.objects.filter(orden_id=int(queryset))
+    except:
+        print("No fue posible encontrar la orden")
+    return render(request, 'AgenteReparapp/listar_ordenes_buscadas.html', {'ordenes': orden})
+
+class CrearFactura(CreateView):
+    model = Factura
+    template_name = 'AgenteReparapp/agregar_factura.html'
+    form_class = NuevaFacturaForm
+    success_url = reverse_lazy('agente:listar_ordenes')
+
+    def get_form_kwargs(self):
+        kwargs = super(CrearFactura, self).get_form_kwargs()
+        kwargs.update(self.kwargs)  # self.kwargs contains all url conf params
+        return kwargs
+
+class CerrarOrden(UpdateView):
+    model = Orden
+    form_class = InformarOrdenForm
+    template_name = 'AgenteReparapp/cerrar_orden.html'
+    success_url = reverse_lazy('agente:listar_ordenes')

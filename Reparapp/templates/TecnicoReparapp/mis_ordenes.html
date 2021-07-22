@@ -1,0 +1,45 @@
+{% extends 'inicio/index.html' %}
+{% block title %}
+Lista de órdenes
+{% endblock title %}
+
+
+{% block body %}
+{% if user.is_tecnico %}
+<table class="table">
+    {% if  ordenes %}
+    <tr>
+        <th>Orden id</th>
+        <th>Estado</th>
+        <th>Producto</th>
+        <th>Averia</th>
+        <th>Fecha de ingreso</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for orden in ordenes %}
+    <tr>
+        <td>{{orden.orden_id}}</td>
+        <td>{{orden.estado}}</td>
+        <td>{{orden.producto.nombre_electrodomestico}}</td>
+        <td>{{orden.producto.averia}}</td>
+        <td>{{orden.fecha_ingreso}}</td>         
+        <td>
+            <a href="{% url 'tecnico:reparar_orden' orden.orden_id %}" class="btn btn-primary">Reparar Orden</a>
+        </td>
+
+    </tr>
+    {% endfor %}
+
+    {%else%}
+    <p align="center">
+    <h1>No existen registros</h1>
+    </p>    
+    {% endif %}
+</table>
+{% else %}
+
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
+{% endblock body %}
+</html>

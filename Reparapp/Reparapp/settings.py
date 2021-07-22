@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'Reparapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd317aipki6g5lb',
-        'USER':'wwplfhuciodqwn',
-        'PASSWORD':'f8b62e757fb2c4a539c6ca4a89714f2767d598e5a94cfd0f30b703eed30b1bf5',
-        'HOST':'ec2-23-21-4-7.compute-1.amazonaws.com',
+        'NAME': 'd925in0saljid2',
+        'USER':'yzrdnezrqarebr',
+        'PASSWORD':'0057a635f252276b5970d31ca8237a4996852963608e72b3396316e02f909da5',
+        'HOST':'ec2-23-23-164-251.compute-1.amazonaws.com',
         'PORT':'5432',
     }
 }

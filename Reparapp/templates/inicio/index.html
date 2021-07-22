@@ -1,4 +1,4 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,7 +6,8 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title> Administrador Reparapp </title>
+  <title> {%block title %} Administrador Reparapp {%endblock title%}</title>
+  {% load static %}
   <!-- plugins:css -->
   <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/vendors/iconfonts/ionicons/dist/css/ionicons.css' %}">
@@ -41,11 +42,6 @@
         <ul class="navbar-nav">
           <li class="nav-item font-weight-semibold d-none d-lg-block"></li>
         </ul>
-        <form class="ml-auto search-form d-none d-md-block" method="GET">
-          <div class="form-group">
-            <input type="search" class="form-control" placeholder="Buscar aquí" name="buscar">
-          </div>
-        </form>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown d-none d-xl-inline-block user-dropdown">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -191,20 +187,27 @@
             <div class="collapse" id="ordenes">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'agente:listar_ordenes' %}">Listar Órdenes</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="{% url 'agente:agregar_orden' %}">Agregar Orden</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'agente:agregar_orden_cliente' %}">Agregar Orden y Cliente nuevo</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'agente:listar_ordenes' %}">Listar Órdenes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'agente:listar_mis_ordenes' user.id%}">Listar Órdenes Reparadas</a>
+                </li>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'agente:listar_orden_buscada'%}">Cerrar Orden</a>
+              </li>
               </ul>
             </div>
           </li>
         </ul>
       </nav>
-      {% elif user.tecnico %}
+      {% elif user.is_tecnico %}
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item nav-profile">
@@ -222,54 +225,55 @@
           </li>
           <li class="nav-item nav-category">Menú principal</li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#agentes" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#tecnicos" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon typcn typcn-coffee"></i>
-              <span class="menu-title">Clientes</span>
+              <span class="menu-title">Ordenes</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="agentes">
+            <div class="collapse" id="tecnicos">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="">Listar Clientes</a>
+                  <a class="nav-link" href="{% url 'tecnico:listar_ordenes'%}">Órdenes</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="">Agregar Cliente</a>
+                  <a class="nav-link" href="{% url 'tecnico:mis_ordenes' user.id %}"> Mis Órdenes</a>
                 </li>
               </ul>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon typcn typcn-coffee"></i>
-              <span class="menu-title">Órdenes</span>
-              <i class="menu-arrow"></i>
+        </ul>
+      </nav>
+      {% elif user.is_operador %}
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="profile-image">
+                <img class="img-xs rounded-circle" src="{% static 'assets/images/faces/Sample_User_Icon.png' %}"
+                  alt="profile image">
+                <div class="dot-indicator bg-success"></div>
+              </div>
+              <div class="text-wrapper">
+                <p class="profile-name">{{user.nombres}}</p>
+                <p class="designation">{{user.email}}</p>
+              </div>
             </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="">Listar Órdenes</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="">Agregar Órden</a>
-                </li>
-              </ul>
-            </div>
           </li>
+          <li class="nav-item nav-category">Menú principal</li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#operadores" aria-expanded="false"
-              aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#tecnicos" aria-expanded="false" aria-controls="ui-basic">
               <i class="menu-icon typcn typcn-coffee"></i>
-              <span class="menu-title">Operadores</span>
+              <span class="menu-title">Facturar</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="operadores">
+            <div class="collapse" id="tecnicos">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                  <a class="nav-link" href="">Listar Operadores</a>
+                  <a class="nav-link" href="{% url 'tecnico:listar_facturas'%}">Lista de Facturas</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="">Agregar Operador</a>
-                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="{% url 'tecnico:mis_ordenes' user.id %}"> Órdenes Informados</a>
+                </li> -->
               </ul>
             </div>
           </li>

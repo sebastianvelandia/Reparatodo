@@ -1,0 +1,53 @@
+{% extends 'inicio/index.html' %}
+{% block title %}
+Lista de ordenes
+{% endblock title %}
+
+
+{% block navbar %}
+
+<form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="buscar">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+</form>
+{% endblock navbar %}
+{% block body %}
+{% if user.is_agente %}
+<br>
+
+<table class="table">
+    {% if  ordenes %}
+    <tr>
+        <th>Orden id</th>
+        <th>Estado</th>
+        <th>Cliente</th>
+        <th>Producto</th>
+        <th>Fecha de ingreso</th>
+        <th>Fecha de retiro</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for orden in ordenes %}
+    <tr>
+        <td>{{orden.orden_id}}</td>
+        <td>{{orden.estado}}</td>
+        <td>{{orden.cliente}}</td>
+        <td>{{orden.producto.nombre_electrodomestico}}</td>
+        <td>{{orden.fecha_ingreso}}</td>
+        <td>{{orden.factura.fecha_retiro}}</td>
+        {% if orden.estado == 'INFORMADA'%}
+        <td>
+            <a href="{% url 'agente:cerrar_orden' orden.orden_id %}" class="btn btn-primary">Cerrar Orden</a>
+        </td>
+        {% endif%}
+    </tr>
+    {% endfor %}
+
+    {% endif %}
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
+{% endblock body %}
+
+</html>

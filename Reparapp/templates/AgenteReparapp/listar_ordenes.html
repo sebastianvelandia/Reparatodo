@@ -4,8 +4,11 @@ Lista de ordenes
 {% endblock title %}
 
 
+
 {% block body %}
-{% if user.is_agente or user.is_admin%}
+{% if user.is_agente or user.is_admin or user.is_tecnico %}
+<br>
+
 <table class="table">
     {% if  ordenes %}
     <tr>
@@ -43,4 +46,5 @@ Lista de ordenes
 <p>No tiene autorización para ingresar a este sitio</p>
 {% endif%}
 {% endblock body %}
+
 </html>

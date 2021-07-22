@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls.base import reverse
 from AdminReparapp.models import Agente, TecnicoEspecialista
 from TecnicoReparapp.models import CallCenter
 
@@ -61,7 +62,8 @@ class Orden(models.Model):
         verbose_name_plural = ("Órdenes")
 
     def __str__(self):
-        return self.orden_id
+        id = str(self.orden_id)
+        return id
 
     def get_absolute_url(self):
         return reverse("Orden_detail", kwargs={"pk": self.pk})

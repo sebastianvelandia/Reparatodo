@@ -1,0 +1,44 @@
+{% extends 'inicio/index.html' %}
+{% block title %}
+Lista de ordenes
+{% endblock title %}
+
+
+{% block body %}
+{% if user.is_operador %}
+<table class="table">
+    {% if  facturas %}
+    <tr>
+        <th>Factura id</th>
+        <th>Estado de la orden</th>
+        <th>Nombre del cliente</th>
+        <th>Producto</th>
+        <th>Fecha de retiro</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for factura in facturas %}
+    {% if factura.orden.estado == 'REPARADA'%}
+    <tr>
+        <td>{{factura.factura_id}}</td>
+        <td>{{factura.orden.orden_id}}</td>
+        <td>{{factura.orden.cliente.nombre}}</td>
+        <td>{{factura.orden.producto.nombre_electrodomestico}}</td>
+        <td>{{factura.fecha_retiro}}</td>
+        <td>
+            <a href="{% url 'tecnico:actualizar_factura' factura.orden.orden_id %}" class="btn btn-primary">Ver Factura</a>
+        </td>
+    </tr>
+    {%endif%}
+    {% endfor %}
+
+    {%else%}
+    <h1>No existen registros</h1>
+    {% endif %}
+</table>
+{% else %}
+<p>No tiene autorización para ingresar a este sitio</p>
+{% endif%}
+{% endblock body %}
+
+</html>

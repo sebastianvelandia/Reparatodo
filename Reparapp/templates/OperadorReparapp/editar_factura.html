@@ -1,0 +1,83 @@
+{% extends 'inicio/index.html' %}
+{% block title %}
+Ver factura
+{% endblock title %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="container">
+    <h1 align="center">Detalles de la factura {{ orden.factura.factura_id}}</h1>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <p class="font-weight-bold">Costo :</p>
+        </div>
+        <div class="col-md-auto">{{orden.factura.costo_orden}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <p class="font-weight-bold">Cliente : </p>
+        </div>
+        <div class="col-md-auto">
+            {{orden.cliente.nombre}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <p class="font-weight-bold">Teléfono del cliente : </p>
+        </div>
+        <div class="col-md-auto">
+            {{orden.cliente.telefono}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <p class="font-weight-bold">Agente: </p>
+        </div>
+        <div class="col-md-auto">
+            {{orden.agente.user.nombres}}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <p class="font-weight-bold">Producto: </p>
+        </div>
+        <div class="col-md-auto">
+            {{orden.producto.nombre_electrodomestico}}
+        </div>
+    </div>
+    <br>
+    <p align="right">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Informar
+        </button>
+    </p>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Está seguro?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Si el cliente ya ha sido informado, seleccione 'Informada'</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{form | crispy}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
